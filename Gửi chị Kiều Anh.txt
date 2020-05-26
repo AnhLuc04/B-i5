@@ -1,0 +1,35 @@
+use codegym;
+create table h20
+(
+    ID   int,
+    primary key (ID),
+    name varchar(20),
+    year date
+);
+insert into h20
+values (1, 'luc', 04 / 03 / 2001);
+create table h30
+(
+    ID    int,
+    Luong int,
+    foreign key (ID) references h20 (ID)
+);
+insert into h30
+values (1, 500000);
+
+select name, sum(Luong) Lương
+from h30
+         left join h20 h on h30.ID = h.ID
+group by name;
+
+
+CREATE INDEX Test123 on h20(ID);
+EXPLAIN SELECT * FROM h20 WHERE ID=1;
+
+CREATE VIEW testView as select name from h20 ;
+SELECT from testView;
+
+CREATE procedure lala()
+BEGIN
+select *from h20;
+END

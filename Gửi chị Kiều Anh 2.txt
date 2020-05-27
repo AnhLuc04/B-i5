@@ -1,0 +1,95 @@
+CREATE DATABASE CSDL;
+DROP DATABASE CSDL;
+USE CSDL;
+
+
+
+CREATE TABLE CSDL1(
+id int ,
+name varchar (250),
+year  int ,
+homeTown varchar (250),
+PRIMARY KEY (id));
+
+insert into CSDL1  values (1,'Long',18,'Tân');
+insert into CSDL1  values (2,'Linh',18,'phong');
+insert into CSDL1  values (3,'Luong',18,'loc');
+insert into CSDL1  values (4,'trang',19,'cát');
+insert into CSDL1  values (5,'Loc',18,'cát');
+
+UPDATE CSDL1 SET name=   where  id=  ;
+
+DELETE FROM CSDL1 where id=;
+
+DROP table CSDL1;
+
+SELECT *FROM CSDL1;
+
+SELECT SUM(year)
+FROM CSDL1;
+
+SELECT name ,homeTown
+FROM CSDL1
+WHERE id=1;
+
+CREATE TABLE CSDL2(
+id int ,
+SomeHolidays int ,
+Status varchar (250),
+FOREIGN KEY (id) references CSDL1(id));
+
+insert into CSDL2 values (1,2,'reach');
+insert into CSDL2 values (2,2,'reach');
+insert into CSDL2 values (3,0,'reach');
+insert into CSDL2 values (4,1,'slip');
+insert into CSDL2 values (5,3,'slip');
+
+UPDATE CSDL2 SET name=   where  id=  ;
+
+DELETE FROM CSDL1 where id=4;
+
+DROP table CSDL2;
+
+SELECT *FROM CSDL2;
+
+SELECT SomeHolidays ,Status
+FROM CSDL2
+WHERE id=1;
+
+
+
+
+SELECT CSDL1.name,CSDL2.Status
+FROM CSDL1
+INNER JOIN CSDL2 ON  CSDL1.id= CSDL2.id;
+
+SELECT CSDL1.name,CSDL2.Status
+FROM CSDL1
+LEFT JOIN CSDL2 ON CSDL1.id= CSDL2.id;
+
+SELECT COUNT(CSDL2.SomeHolidays),CSDL1.year
+FROM CSDL1 INNER JOIN CSDL2 ON  CSDL1.id= CSDL2.id
+GROUP BY CSDL1.year;
+
+
+SELECT COUNT(CSDL2.SomeHolidays),CSDL1.year
+FROM CSDL1 INNER JOIN CSDL2 ON  CSDL1.id= CSDL2.id
+GROUP BY CSDL1.year
+HAVING year>20;
+
+
+CREATE INDEX CSDL2_index on CSDL2(id);
+EXPLAIN SELECT * FROM CSDL2 WHERE id=1;
+
+CREATE VIEW CSDL1_VIEW  AS SELECT name FROM CSDL1;
+SELECT *FROM CSDL1_VIEW;
+
+CREATE PROCEDURE CSDL2_Pro(
+CSDL_ID int ,
+CSDL2_SomeHolidays int ,
+CSDL2_Status varchar (250))
+BEGIN
+insert into CSDL2 values (id=CSDL_ID,SomeHolidays=CSDL2_SomeHolidays,Status=CSDL2_Status );
+END;
+CAll CSDL2_Pro(7,0,'reach');
+
